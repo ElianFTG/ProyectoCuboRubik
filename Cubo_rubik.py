@@ -15,7 +15,11 @@ class CuboRubik:
             for j in range(len(lado[i])):
                 print(lado[i][j], end=" ")
             print()
-            
+     
+    def __eq__(self, otro):
+        if isinstance(otro, CuboRubik):
+            return (self.arriba, self.frente, self.izquierda, self.derecha, self.abajo, self.atras) == (otro.arriba, otro.frente, otro.izquierda, otro.derecha, otro.abajo, otro.atras)
+        return False
 
     def mostrar_cubo(self):
         lados = ['arriba', 'frente', 'izquierda', 'derecha', 'abajo', 'atrás']
@@ -24,11 +28,6 @@ class CuboRubik:
             self.mostrar_sector(self.cubo[indice])
             print("-----------")
 
-    def girar_cara_horario(self, cara):
-        cara[:] = [list(reversed(col)) for col in zip(*cara)]
-
-    def girar_cara_antihorario(self, cara):
-        cara[:] = [list(col[::-1]) for col in zip(*cara)]
 
     def insertar_datos_cubo(self,txt):
         recorrido_caras = -1
@@ -42,6 +41,12 @@ class CuboRubik:
             self.cubo[recorrido_caras][casillas_cubo] = lineas[indice].split()
             casillas_cubo += 1
 
+    def girar_cara_horario(self, cara):
+        cara[:] = [list(reversed(col)) for col in zip(*cara)]
+
+    def girar_cara_antihorario(self, cara):
+        cara[:] = [list(col[::-1]) for col in zip(*cara)]
+    
     def girar_arriba_horario(self):
         self.girar_cara_horario(self.arriba)
         temp = [self.frente[0][:], self.izquierda[0][:], self.atras[0][:], self.derecha[0][:]]
@@ -95,12 +100,7 @@ class CuboRubik:
     def girar_atras_horario(self):
         self.girar_cara_horario(self.atras)
         temp = [self.arriba[::-1][2], self.derecha[::-1][2], self.abajo[::-1][2], self.izquierda[::-1][2]]
-        self.arriba[::-1][2], self.derecha[::-1][2], self.abajo[::-1][2], self.izquierda[::-1][2] = temp[3
+        self.arriba[::-1][2], self.derecha[::-1][2], self.abajo[::-1][2], self.izquierda[::-1][2] = temp[3]
         
-
-cubo = CuboRubik()
-cubo.insertar_datos_cubo("lecturacubo.txt")
-cubo.girar_arriba_antihorario()
-cubo.mostrar_cubo()
 
 
