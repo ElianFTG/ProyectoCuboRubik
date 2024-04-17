@@ -10,9 +10,9 @@ naranja naranja naranja
 rojo rojo rojo
 rojo rojo rojo
 rojo rojo rojo
-amarillo amarillo amarillo
-amarillo amarillo amarillo
-amarillo amarillo amarillo
 azul azul azul
 azul azul azul
 azul azul azul
+amarillo amarillo amarillo
+amarillo amarillo amarillo
+amarillo amarillo amarillo
