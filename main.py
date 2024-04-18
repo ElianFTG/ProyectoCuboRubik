@@ -1,5 +1,6 @@
 from Cubo_rubik import *
 from BusquedasGrafos import *
+from grafo_cubo import *
 
 def mover_piezas():
     cubo = CuboRubik() 
@@ -13,9 +14,27 @@ matriz_generica = [
     [7, 8, 9]
 ]
 
+
+
+#matriz_generica2 = matriz_generica[:][:]
 cubo = CuboRubik()
 cubo.insertar_datos_cubo("lecturacubo.txt")
-#cubo2.insertar_datos_cubo("lecturacubo.txt")
-cubo.Down_prima()
-cubo.mostrar_cubo()
+# cubo2 = CuboRubik(cubo.arriba[:][:],
+#         cubo.frente[:][:],
+#         cubo.izquierda[:][:],
+#         cubo.derecha[:][:],
+#         cubo.abajo[:][:],
+#         cubo.atras[:][:]
+#        )
+
+cubo.Up()
+cubo.Front()
+
+# cubo2 = CuboRubik()
+# cubo2 = cubo.copiar_elementos()
+# cubo.Right()
+
+#cubo.mostrar_cubo()
+# print("########")
+# cubo2.mostrar_cubo()
 
