@@ -14,7 +14,7 @@ matriz_generica = [
     [7, 8, 9]
 ]
 
-
+print()
 
 #matriz_generica2 = matriz_generica[:][:]
 cubo = CuboRubik()
@@ -27,8 +27,8 @@ cubo.insertar_datos_cubo("lecturacubo.txt")
 #         cubo.atras[:][:]
 #        )
 
-cubo.Up()
-cubo.Front()
+
+cubo.Left()
 
 # cubo2 = CuboRubik()
 # cubo2 = cubo.copiar_elementos()
