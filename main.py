@@ -43,6 +43,12 @@ cubo.Right()
 cubo.Back()
 
 cubo.Front()
+cubo.Up_prima()
+cubo.Down_prima()
+cubo.Back_prima()
+cubo.Front_prima()
+cubo.Left_prima()
+cubo.Right_prima()
 cubo.mostrar_cubo()
 # cubo2 = CuboRubik()
 # cubo2 = cubo.copiar_elementos()76
