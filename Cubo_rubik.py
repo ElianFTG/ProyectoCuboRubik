@@ -85,49 +85,73 @@ class CuboRubik:
 
 
     def Up(self):
-        self.izquierda[0], self.frente[0], self.derecha[0],self.atras[0] = self.frente[0],self.derecha[0],self.atras[0],self.izquierda[0]
+        frente = self.frente[0].copy()
+        derecha = self.derecha[0].copy()
+        atras = self.atras[0].copy()
+        izquierda = self.izquierda[0].copy()
+        self.frente[0] = derecha
+        self.derecha[0] = atras
+        self.atras[0] = izquierda
+        self.izquierda[0] = frente
         self.arriba = self.giro_horario(self.arriba)
         
     def Front(self):
-        
-        fila_adyacente_superior = self.arriba[2]
-        fila_adyacente_abajo = self.abajo[0]
-        columna_adyacente_derecha = [self.derecha[2][0],self.derecha[1][0],self.derecha[0][0]]
-        columna_adyacente_izquierda = [self.izquierda[2][2],self.izquierda[1][2],self.izquierda[0][2] ]
-        
-        self.arriba[2] = columna_adyacente_izquierda
-        
-        self.derecha[0][0],self.derecha[1][0],self.derecha[2][0] = fila_adyacente_superior[0],fila_adyacente_superior[1],fila_adyacente_superior[2]
-        self.izquierda[0][2],self.izquierda[1][2],self.izquierda[2][2] = fila_adyacente_abajo[0],fila_adyacente_abajo[1],fila_adyacente_abajo[2]
-        self.abajo[0] = columna_adyacente_derecha
+        columnas_ady_U = [ self.arriba[2][columna] for columna in range(3) ]
+        columnas_ady_D = [ self.abajo[0][columna] for columna in range(3) ]
+        filas_ady_R = [self.derecha[filas][0] for filas in range(3) ][::-1]
+        filas_ady_L = [self.izquierda[filas][2] for filas in range(3) ][::-1]
+        self.arriba[2] = filas_ady_L
+        self.abajo[0] = filas_ady_R
+        for i in range(3):
+            self.izquierda[i][2] = columnas_ady_D[i]
+            self.derecha[i][0] = columnas_ady_U[i]
 
         self.frente = self.giro_horario(self.frente)
         
-    def columnas_laterales(self, matrizes,posicion_columna_AFA,posicion_columna_A):
+    def columnas_laterales(self, matrizes,posicion_columna_AFA,posicion_columna_D):
         columnas = []
         #[arriba,frente,abajo,atras]
         for matriz in range(3):
             columnas.append([ matrizes[matriz][filas][posicion_columna_AFA] for filas in range(3)])
                 
-        columnas.append([matrizes[3][filas][posicion_columna_A] for filas in range(3)])
+        columnas.append([matrizes[3][filas][posicion_columna_D] for filas in range(3)])
         return columnas
 
     def Left(self):
-        columnas = self.columnas_laterales([self.arriba,self.frente,self.abajo,self.atras],2,0)
-        print(columnas)
+        columnas = self.columnas_laterales([self.arriba,self.frente,self.abajo,self.atras],0,2)
+        columnas[3] = columnas[3][::-1]
+        columnas[2] = columnas[2][::-1]
+        for filas in range(3):
+          self.arriba[filas][0] = columnas[3][filas]
+          self.frente[filas][0] = columnas[0][filas]
+          self.abajo[filas][0] = columnas[1][filas]
+          self.atras[filas][2] = columnas[2][filas]
         self.izquierda = self.giro_horario(self.izquierda)
 
-
     def Right(self):
-        for i in range(3):
-            self.arriba[i][2], self.atras[2-i][0], self.abajo[i][2], self.frente[i][2] = \
-                self.frente[i][2], self.arriba[i][2], self.atras[2-i][0], self.abajo[i][2]
+        columnas = self.columnas_laterales([self.arriba,self.frente,self.abajo,self.atras],2,0)
+        columnas[0] = columnas[0][::-1]
+        columnas[3] = columnas[3][::-1]
+        
+        #[arriba,frente,abajo,atras]
+        for filas in range(3):
+          self.arriba[filas][2] = columnas[1][filas]
+          self.frente[filas][2] = columnas[2][filas]
+          self.abajo[filas][2] = columnas[3][filas]
+          self.atras[filas][0] = columnas[0][filas]
         self.derecha = self.giro_horario(self.derecha)
         
     def Back(self):
+        columnas_ady_U = [ self.arriba[0][columna] for columna in range(3) ][::-1]
+        columnas_ady_D = [ self.abajo[2][columna] for columna in range(3) ][::-1]
+        filas_ady_R = [self.derecha[filas][2] for filas in range(3) ]
+        filas_ady_L = [self.izquierda[filas][0] for filas in range(3) ]
+        self.arriba[0] = filas_ady_R
+        self.abajo[2] = filas_ady_L
         for i in range(3):
-            self.arriba[0][i], self.derecha[2-i][2], self.abajo[2][i], self.izquierda[2-i][0] = \
-                self.derecha[2-i][2], self.abajo[2][i], self.izquierda[2-i][0], self.arriba[0][i]
+            self.izquierda[i][0] = columnas_ady_U[i]
+            self.derecha[i][2] = columnas_ady_D[i]
+
         self.atras = self.giro_horario(self.atras)
     
     def Down(self):
@@ -137,7 +161,14 @@ class CuboRubik:
 
     # Funciones de giro en sentido antihorario
     def Up_prima(self):
-        self.derecha[0], self.atras[0],self.izquierda[0],self.frente[0] = self.frente[0],self.derecha[0],self.atras[0],self.izquierda[0]
+        frente = self.frente[0].copy()
+        derecha = self.derecha[0].copy()
+        atras = self.atras[0].copy()
+        izquierda = self.izquierda[0].copy()
+        self.frente[0] = izquierda
+        self.derecha[0] = frente
+        self.atras[0] = derecha
+        self.izquierda[0] = atras
         self.arriba = self.giro_antihorario(self.arriba)      
 
 
@@ -154,15 +185,21 @@ class CuboRubik:
         self.atras = self.giro_antihorario(self.atras)        
 
     def Left_prima(self):
-        for i in range(3):
-            self.arriba[i][0], self.frente[i][0], self.abajo[i][0], self.atras[2-i][2] = \
-                self.frente[i][0], self.abajo[i][0], self.atras[2-i][2], self.arriba[i][0]
+        columnas = self.columnas_laterales([self.arriba,self.frente,self.abajo,self.atras],2,0)
+        for filas in range(3):
+          self.arriba[filas][0] = columnas[3][filas]
+          self.frente[filas][0] = columnas[0][filas]
+          self.abajo[filas][0] = columnas[1][filas]
+          self.atras[filas][2] = columnas[2][filas]
         self.izquierda = self.giro_antihorario(self.izquierda)
 
     def Right_prima(self):
-        for i in range(3):
-            self.arriba[i][2], self.frente[i][2], self.abajo[i][2], self.atras[2-i][0] = \
-                self.atras[2-i][0], self.arriba[i][2], self.frente[i][2], self.abajo[i][2]    
+        columnas = self.columnas_laterales([self.arriba,self.frente,self.abajo,self.atras],0,2)
+        for filas in range(3):
+          self.arriba[filas][2] = columnas[1][filas]
+          self.frente[filas][2] = columnas[2][filas]
+          self.abajo[filas][2] = columnas[3][filas]
+          self.atras[filas][0] = columnas[0][filas]
         self.derecha = self.giro_antihorario(self.derecha)
 
     def Down_prima(self):

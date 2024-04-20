@@ -28,13 +28,25 @@ cubo.insertar_datos_cubo("lecturacubo.txt")
 #        )
 
 
+#cubo.Left()
+#cubo.Front()
+#cubo.Right()
+
+#cubo.Back()
 cubo.Left()
-
-# cubo2 = CuboRubik()
-# cubo2 = cubo.copiar_elementos()
-# cubo.Right()
-
 #cubo.mostrar_cubo()
+cubo.Up()
+#cubo.mostrar_cubo()
+
+cubo.Right()
+#cubo.mostrar_cubo()
+cubo.Back()
+
+cubo.Front()
+cubo.mostrar_cubo()
+# cubo2 = CuboRubik()
+# cubo2 = cubo.copiar_elementos()76
+# cubo.Right()
 # print("########")
 # cubo2.mostrar_cubo()
 
