@@ -1,4 +1,6 @@
 import copy
+from collections import Counter
+
 
 class CuboRubik:
     # def __init__(self):
@@ -18,6 +20,7 @@ class CuboRubik:
         self.abajo = abajo
         self.atras = atras
         self.cubo = [self.arriba, self.frente, self.izquierda, self.derecha, self.atras, self.abajo]
+        self.valido = False
 
     def mostrar_sector(self, lado):
         for i in range(len(lado)):
@@ -25,6 +28,7 @@ class CuboRubik:
                 print(lado[i][j], end=" ")
             print()
         print("-----------------------")
+
     def __eq__(self, otro):
         if isinstance(otro, CuboRubik):
             return (self.arriba, self.frente, self.izquierda, self.derecha, self.abajo, self.atras) == (otro.arriba, otro.frente, otro.izquierda, otro.derecha, otro.abajo, otro.atras)
@@ -44,17 +48,48 @@ class CuboRubik:
         print('abajo')
         self.mostrar_sector(self.abajo)
 
+    def validacion_centros(self):
+        centros = ["blanco", "verde","naranja","rojo","azul","amarillo"]
+        centros_incertados =  [centro[1][1].lower() for centro in self.cubo]
+        if centros == centros_incertados:
+            return True
+        print("Los centros no son validos")
+        return False 
+
+    def validacion_colores(self):
+        colores = [casilla for cara in self.cubo for filas in cara for casilla in filas]
+        colores_contados = Counter(colores).most_common()
+        if colores_contados[0][1] == [5][1]:
+            return True
+        print("Hay por lo menos un color de mas o menos")
+        return False 
+
+    # def validacion_ady(self):
+        
+
+    def validacion_cubo(self):
+        self.valido = self.validacion_centros() and self.validacion_colores()
+
+
     def insertar_datos_cubo(self,txt):
         recorrido_caras = -1
         with open(txt, 'r') as f:
             lineas = f.readlines()
-        
-        for indice in range(len(lineas)):
-            if indice % 3 == 0:
-                recorrido_caras += 1
-                casillas_cubo = 0
-            self.cubo[recorrido_caras][casillas_cubo] = lineas[indice].split()
-            casillas_cubo += 1
+        tamanio = len(lineas)
+        if tamanio == 18:
+            for indice in range(tamanio):
+                division_espacios = lineas[indice].split()
+                if len(division_espacios) == 3:
+                    if indice % 3 == 0:
+                        recorrido_caras += 1
+                        casillas_cubo = 0
+                    self.cubo[recorrido_caras][casillas_cubo] = division_espacios
+                    casillas_cubo += 1
+                else:
+                    print("Error, hay mas de 3 elementos o menos, en una fila")
+                    break
+        else:
+            print("Error en insertar valores, no es cubo 3x3")
 
     def copiar_elementos(self):
         nuevo = CuboRubik()

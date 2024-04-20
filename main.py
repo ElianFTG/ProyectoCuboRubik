@@ -27,32 +27,19 @@ cubo.insertar_datos_cubo("lecturacubo.txt")
 #         cubo.atras[:][:]
 #        )
 
-
-#cubo.Left()
-#cubo.Front()
-#cubo.Right()
-
-#cubo.Back()
-cubo.Left()
-#cubo.mostrar_cubo()
-cubo.Up()
-#cubo.mostrar_cubo()
-
-cubo.Right()
-#cubo.mostrar_cubo()
-cubo.Back()
-
-cubo.Front()
-cubo.Up_prima()
-cubo.Down_prima()
-cubo.Back_prima()
-cubo.Front_prima()
-cubo.Left_prima()
-cubo.Right_prima()
-cubo.mostrar_cubo()
-# cubo2 = CuboRubik()
-# cubo2 = cubo.copiar_elementos()76
+#print(cubo.validacion_centros())
+print(cubo.validacion_colores()[0][0])
+# cubo.Left()
+# cubo.Up()
 # cubo.Right()
+# cubo.Back()
+# cubo.Front()
+# cubo.Up_prima()
+# cubo.Down_prima()
+# cubo.Back_prima()
+# cubo.Front_prima()
+# cubo.Left_prima()
+# cubo.Right_prima()
 # print("########")
-# cubo2.mostrar_cubo()
+
 
