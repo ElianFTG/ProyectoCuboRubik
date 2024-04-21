@@ -2,16 +2,7 @@ import copy
 from collections import Counter
 
 
-class CuboRubik:
-    # def __init__(self):
-    #     self.arriba = [[]*3, []*3, []*3]
-    #     self.frente = [[]*3, []*3, []*3]
-    #     self.izquierda = [[]*3, []*3, []*3]
-    #     self.derecha= [[]*3, []*3, []*3]
-    #     self.abajo = [[]*3, []*3, []*3]
-    #     self.atras = [[]*3, []*3, []*3]
-    #     self.cubo = [self.arriba, self.frente, self.izquierda, self.derecha, self.atras, self.abajo]
-    
+class CuboRubik:  
     def __init__(self, arriba=[[]*3, []*3, []*3], frente=[[]*3, []*3, []*3], izquierda=[[]*3, []*3, []*3], derecha=[[]*3, []*3, []*3],abajo=[[]*3, []*3, []*3],atras=[[]*3, []*3, []*3]):
         self.arriba = arriba
         self.frente = frente
@@ -31,9 +22,25 @@ class CuboRubik:
 
     def __eq__(self, otro):
         if isinstance(otro, CuboRubik):
-            return (self.arriba, self.frente, self.izquierda, self.derecha, self.abajo, self.atras) == (otro.arriba, otro.frente, otro.izquierda, otro.derecha, otro.abajo, otro.atras)
+            return (
+                self.arriba == otro.arriba and
+                self.frente == otro.frente and
+                self.izquierda == otro.izquierda and
+                self.derecha == otro.derecha and
+                self.abajo == otro.abajo and
+                self.atras == otro.atras
+            )
         return False
 
+    def __hash__(self):
+        return hash((
+            tuple(map(tuple, self.arriba)),
+            tuple(map(tuple, self.frente)),
+            tuple(map(tuple, self.izquierda)),
+            tuple(map(tuple, self.derecha)),
+            tuple(map(tuple, self.abajo)),
+            tuple(map(tuple, self.atras))
+        ))
     def mostrar_cubo(self):
         print('arriba')
         self.mostrar_sector(self.arriba)
@@ -59,7 +66,7 @@ class CuboRubik:
     def validacion_colores(self):
         colores = [casilla for cara in self.cubo for filas in cara for casilla in filas]
         colores_contados = Counter(colores).most_common()
-        if colores_contados[0][1] == [5][1]:
+        if colores_contados[0][1] == colores_contados[5][1]:
             return True
         print("Hay por lo menos un color de mas o menos")
         return False 
@@ -87,9 +94,11 @@ class CuboRubik:
                     casillas_cubo += 1
                 else:
                     print("Error, hay mas de 3 elementos o menos, en una fila")
-                    break
+                    return
         else:
             print("Error en insertar valores, no es cubo 3x3")
+            return
+        self.validacion_cubo()
 
     def copiar_elementos(self):
         nuevo = CuboRubik()
@@ -107,10 +116,8 @@ class CuboRubik:
     def giro_antihorario(self,matrix):
         filas = len(matrix)
         columnas = len(matrix[0])
-
         # Creamos una matrix vacía para almacenar la matrix girada
         matrix_girada = [[0] * filas for _ in range(columnas)]
-
         # Giramos la matrix 90 grados en sentido antihorario
         for i in range(filas):
             for j in range(columnas):
@@ -259,3 +266,20 @@ class CuboRubik:
     def Down_prima(self):
         self.frente[2],self.derecha[2],self.atras[2],self.izquierda[2] = self.derecha[2], self.atras[2],self.izquierda[2], self.frente[2]
         self.abajo = self.giro_antihorario(self.abajo)
+
+    def girar_pieza(self, sentido):
+        giros = {
+            "Up" : self.Up(),
+            "Right": self.Right(),
+            "Left": self.Left(),
+            "Front": self.Front(),
+            "Back": self.Back(),
+            "Down": self.Down(),
+            "Up'": self.Up_prima(),
+            "Right'":self.Right_prima(),
+            "Left'": self.Left_prima(),
+            "Front'": self.Front_prima(),
+            "Back'": self.Back_prima(),
+            "Down'": self.Down_prima()   
+        }
+        giros[sentido]
