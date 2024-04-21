@@ -3,8 +3,14 @@ from collections import Counter
 import numpy as np
 
 class CuboRubik:  
-    def __init__(self):
-        self.cubo = np.array([np.zeros((3, 3), dtype=object),np.zeros((3, 3), dtype=object),np.zeros((3, 3), dtype=object),np.zeros((3, 3), dtype=object),np.zeros((3, 3), dtype=object),np.zeros((3, 3), dtype=object)])
+    def __init__(self,arriba=np.zeros((3, 3),dtype=object), 
+                 frente=np.zeros((3, 3), dtype=object), 
+                 izquierda=np.zeros((3, 3), dtype=object), 
+                 derecha=np.zeros((3, 3), dtype=object),
+                 atras=np.zeros((3, 3), dtype=object),
+                 abajo=np.zeros((3, 3), dtype=object)
+                 ):
+        self.cubo = np.array([arriba,frente,izquierda,derecha,atras,abajo])
         self.arriba = self.cubo[0]
         self.frente = self.cubo[1]
         self.izquierda = self.cubo[2]
@@ -53,12 +59,17 @@ class CuboRubik:
         print("Hay por lo menos un color de mas o menos")
         return False 
 
-    # def validacion_ady(self):
+    
         
 
     def validacion_cubo(self):
         self.valido = self.validacion_centros() and self.validacion_colores()
 
+
+    def __eq__(self, otro_objeto):
+        if isinstance(otro_objeto, CuboRubik):
+            return np.array_equal(self.arriba,otro_objeto.arriba) 
+        return False
 
     def insertar_datos_cubo(self,txt):
         recorrido_caras = -1

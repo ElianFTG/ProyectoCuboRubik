@@ -7,6 +7,14 @@ def insertar_cubo(txt):
     cubo.insertar_datos_cubo(txt)
     return cubo
 
+def cubo_armado():
+    colores = ["blanco","verde","naranja","rojo","azul","amarillo"]
+    lista = np.array([np.zeros((3, 3),dtype=object)]*6)
+    for cara in range(len(lista)):
+        lista[cara] = [[colores[cara]]*3]*3 
+    armado = CuboRubik(lista[0],lista[1],lista[2],lista[3],lista[4],lista[5])
+    return armado
+
 
 def bfs(cubo_raiz, cubo_solucion):
         queue = deque([(cubo_raiz, [])])
@@ -24,23 +32,39 @@ def bfs(cubo_raiz, cubo_solucion):
             return None
 
 
-armado = CuboRubik()
-armado.cubo = [["blanco"]*9,["verde"]*9,["naranja"]*9,["rojo"]*9,["azul"]*9,["amarillo"]*9]
-url = input()
-cubo_insertado = insertar_cubo(url)
 
-cubo_insertado.Left()
-
-cubo_insertado.Front()
-
-cubo_insertado.Down_prima()
+# Crear un array de numpy con una dimensión mínima
 
 
-cubo_insertado.Back()
+# armado = CuboRubik(np.array([[["blanco"]*3]*3],dtype=object),
+#                    np.array([[["verde"]*3]*3],dtype=object),
+#                    np.array([[["naranja"]*3]*3],dtype=object),
+#                    np.array([[["rojo"]*3]*3],dtype=object),
+#                    np.array([[["azul"]*3]*3],dtype=object),
+#                    np.array([[["amarillo"]*3]*3],dtype=object))
+# armado.cubo = np.array([[["blanco"]*3]*3,
+#                         [["verde"]*3]*3,
+#                         [["naranja"]*3]*3,
+#                         [["rojo"]*3]*3,
+#                         [["azul"]*3]*3,
+#                         [["amarillo"]*3]*3],dtype=object)
+# armado.mostrar_cubo()
+# url = input()
+# cubo_insertado = insertar_cubo(url)
+armado = cubo_armado()
+#print(cubo_insertado)
+# cubo_insertado.Left()
 
-cubo_insertado.Left_prima()
-cubo_insertado.Down()
-cubo_insertado.mostrar_cubo()
+# cubo_insertado.Front()
+
+# cubo_insertado.Down_prima()
+
+
+# cubo_insertado.Back()
+
+# cubo_insertado.Left_prima()
+# cubo_insertado.Down()
+armado.mostrar_cubo()
 # print(cubo_insertado==armado)
 
 # pasos = bfs(cubo_insertado, armado)
