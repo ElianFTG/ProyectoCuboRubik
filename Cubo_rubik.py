@@ -65,11 +65,15 @@ class CuboRubik:
     def validacion_cubo(self):
         self.valido = self.validacion_centros() and self.validacion_colores()
 
-
     def __eq__(self, otro_objeto):
         if isinstance(otro_objeto, CuboRubik):
-            return np.array_equal(self.arriba,otro_objeto.arriba) 
-        return False
+            arriba = np.array_equal(self.arriba,otro_objeto.arriba)
+            frente = np.array_equal(self.frente,otro_objeto.frente)
+            izquierda = np.array_equal(self.izquierda,otro_objeto.izquierda)
+            derecha = np.array_equal(self.derecha,otro_objeto.derecha)
+            atras = np.array_equal(self.atras,otro_objeto.atras)
+            abajo = np.array_equal(self.abajo,otro_objeto.abajo)
+            return arriba and frente and izquierda and derecha and atras and abajo
 
     def insertar_datos_cubo(self,txt):
         recorrido_caras = -1
@@ -94,9 +98,7 @@ class CuboRubik:
         self.validacion_cubo()
 
     def copiar_elementos(self):
-        nuevo = CuboRubik()
-        copia = copy.deepcopy(self.cubo)
-        nuevo.cubo = copia
+        nuevo = CuboRubik(self.arriba,self.frente,self.izquierda,self.derecha,self.atras,self.abajo)
         return nuevo 
     
 

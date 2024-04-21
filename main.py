@@ -21,14 +21,13 @@ def bfs(cubo_raiz, cubo_solucion):
         if cubo_raiz.valido:  
             while queue:
                 estado_actual, giros = queue.popleft()
-
                 if cubo_raiz == cubo_solucion:
                     giros.append("terminado")
                     return giros
                 for giro in ["Up","Right","Left","Front","Down","Back","Up'","Right'","Left'","Front'","Back'","Down'"]:
                     nuevo_estado = estado_actual.copiar_elementos()
                     nuevo_estado.girar_pieza(giro)
-                    queue.append((nuevo_estado, giros.append(giro)))
+                    queue.append((nuevo_estado, giros + [giro]))
             return None
 
 
@@ -49,8 +48,8 @@ def bfs(cubo_raiz, cubo_solucion):
 #                         [["azul"]*3]*3,
 #                         [["amarillo"]*3]*3],dtype=object)
 # armado.mostrar_cubo()
-# url = input()
-# cubo_insertado = insertar_cubo(url)
+url = input()
+cubo_insertado = insertar_cubo(url)
 armado = cubo_armado()
 #print(cubo_insertado)
 # cubo_insertado.Left()
@@ -65,14 +64,14 @@ armado = cubo_armado()
 # cubo_insertado.Left_prima()
 # cubo_insertado.Down()
 armado.mostrar_cubo()
-# print(cubo_insertado==armado)
 
-# pasos = bfs(cubo_insertado, armado)
-# if pasos != None:
-#     print("pasos para armar")
-#     print(pasos)
-# else:
-#     print("No se pudo armar el cubo")
+
+pasos = bfs(cubo_insertado, armado)
+if pasos != None:
+    print("pasos para armar")
+    print(pasos)
+else:
+    print("No se pudo armar el cubo")
 
 # mat1 = np.array([[1,2,3],[4,5,6],[7,8,9]])
 # mat2 = np.array([[1,2,3],[4,5,6],[7,8,9]])
