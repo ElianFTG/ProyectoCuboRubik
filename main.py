@@ -1,5 +1,6 @@
 from Cubo_rubik import *
 from collections import deque
+import numpy as np
 
 def insertar_cubo(txt):
     cubo = CuboRubik()
@@ -27,7 +28,20 @@ armado = CuboRubik()
 armado.cubo = [["blanco"]*9,["verde"]*9,["naranja"]*9,["rojo"]*9,["azul"]*9,["amarillo"]*9]
 url = input()
 cubo_insertado = insertar_cubo(url)
-print(cubo_insertado==armado)
+
+cubo_insertado.Left()
+
+cubo_insertado.Front()
+
+cubo_insertado.Down_prima()
+
+
+cubo_insertado.Back()
+
+cubo_insertado.Left_prima()
+cubo_insertado.Down()
+cubo_insertado.mostrar_cubo()
+# print(cubo_insertado==armado)
 
 # pasos = bfs(cubo_insertado, armado)
 # if pasos != None:
@@ -36,3 +50,7 @@ print(cubo_insertado==armado)
 # else:
 #     print("No se pudo armar el cubo")
 
+# mat1 = np.array([[1,2,3],[4,5,6],[7,8,9]])
+# mat2 = np.array([[1,2,3],[4,5,6],[7,8,9]])
+# print(len(mat1)) 
+# print(np.array_equal(mat1,mat2))

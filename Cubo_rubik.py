@@ -1,16 +1,17 @@
 import copy
 from collections import Counter
-
+import numpy as np
 
 class CuboRubik:  
-    def __init__(self, arriba=[[]*3, []*3, []*3], frente=[[]*3, []*3, []*3], izquierda=[[]*3, []*3, []*3], derecha=[[]*3, []*3, []*3],abajo=[[]*3, []*3, []*3],atras=[[]*3, []*3, []*3]):
-        self.arriba = arriba
-        self.frente = frente
-        self.izquierda = izquierda
-        self.derecha= derecha
-        self.abajo = abajo
-        self.atras = atras
-        self.cubo = [self.arriba, self.frente, self.izquierda, self.derecha, self.atras, self.abajo]
+    def __init__(self):
+        self.cubo = np.array([np.zeros((3, 3), dtype=object),np.zeros((3, 3), dtype=object),np.zeros((3, 3), dtype=object),np.zeros((3, 3), dtype=object),np.zeros((3, 3), dtype=object),np.zeros((3, 3), dtype=object)])
+        self.arriba = self.cubo[0]
+        self.frente = self.cubo[1]
+        self.izquierda = self.cubo[2]
+        self.derecha= self.cubo[3]
+        self.atras = self.cubo[4]
+        self.abajo = self.cubo[5]
+        
         self.valido = False
 
     def mostrar_sector(self, lado):
@@ -20,27 +21,8 @@ class CuboRubik:
             print()
         print("-----------------------")
 
-    def __eq__(self, otro):
-        if isinstance(otro, CuboRubik):
-            return (
-                self.arriba == otro.arriba and
-                self.frente == otro.frente and
-                self.izquierda == otro.izquierda and
-                self.derecha == otro.derecha and
-                self.abajo == otro.abajo and
-                self.atras == otro.atras
-            )
-        return False
+    
 
-    def __hash__(self):
-        return hash((
-            tuple(map(tuple, self.arriba)),
-            tuple(map(tuple, self.frente)),
-            tuple(map(tuple, self.izquierda)),
-            tuple(map(tuple, self.derecha)),
-            tuple(map(tuple, self.abajo)),
-            tuple(map(tuple, self.atras))
-        ))
     def mostrar_cubo(self):
         print('arriba')
         self.mostrar_sector(self.arriba)
@@ -197,7 +179,14 @@ class CuboRubik:
         self.atras = self.giro_horario(self.atras)
     
     def Down(self):
-        self.frente[2],self.derecha[2],self.atras[2],self.izquierda[2] = self.izquierda[2], self.frente[2],self.derecha[2], self.atras[2]
+        frente = self.frente[2].copy()
+        derecha = self.derecha[2].copy()
+        atras = self.atras[2].copy()
+        izquierda = self.izquierda[2].copy()
+        self.frente[2] = izquierda
+        self.derecha[2] = frente
+        self.atras[2] = derecha
+        self.izquierda[2] = atras
         self.abajo = self.giro_horario(self.abajo)
         
 
@@ -264,8 +253,15 @@ class CuboRubik:
         self.derecha = self.giro_antihorario(self.derecha)
 
     def Down_prima(self):
-        self.frente[2],self.derecha[2],self.atras[2],self.izquierda[2] = self.derecha[2], self.atras[2],self.izquierda[2], self.frente[2]
-        self.abajo = self.giro_antihorario(self.abajo)
+        frente = self.frente[2].copy()
+        derecha = self.derecha[2].copy()
+        atras = self.atras[2].copy()
+        izquierda = self.izquierda[2].copy()
+        self.frente[2] = derecha
+        self.derecha[2] = atras
+        self.atras[2] = izquierda
+        self.izquierda[2] = frente
+        self.abajo = self.giro_antihorario(self.abajo) 
 
     def girar_pieza(self, sentido):
         giros = {
