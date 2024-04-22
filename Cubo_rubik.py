@@ -1,4 +1,3 @@
-import copy
 from collections import Counter
 import numpy as np
 
@@ -277,18 +276,27 @@ class CuboRubik:
         self.abajo = self.giro_antihorario(self.abajo) 
 
     def girar_pieza(self, sentido):
-        giros = {
-            "Up" : self.Up(),
-            "Right": self.Right(),
-            "Left": self.Left(),
-            "Front": self.Front(),
-            "Back": self.Back(),
-            "Down": self.Down(),
-            "Up'": self.Up_prima(),
-            "Right'":self.Right_prima(),
-            "Left'": self.Left_prima(),
-            "Front'": self.Front_prima(),
-            "Back'": self.Back_prima(),
-            "Down'": self.Down_prima()   
-        }
-        giros[sentido]
+        if sentido == "Up":
+            self.Up()
+        elif sentido == "Right":
+            self.Right()
+        elif sentido == "Left":
+            self.Left()
+        elif sentido == "Front":
+            self.Front()
+        elif sentido == "Back":
+            self.Back()
+        elif sentido == "Down":
+            self.Down()
+        elif sentido == "Up'":
+            self.Up_prima()
+        elif sentido == "Right'":
+            self.Right_prima()
+        elif sentido == "Left'":
+            self.Left_prima()
+        elif sentido == "Front'":
+            self.Front_prima()
+        elif sentido == "Back'":
+            self.Back_prima()
+        elif sentido == "Down'":
+            self.Down_prima()
