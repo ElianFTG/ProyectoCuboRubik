@@ -25,33 +25,34 @@ def control_redundancia(giros, giro_futuro):
 
 def bfs(cubo_raiz, cubo_solucion):
         queue = deque([(cubo_raiz, [])])
-        altura = 0
-        if cubo_raiz.valido:  
-            while queue:
-                estado_actual, giros = queue.popleft()
-                if estado_actual == cubo_solucion:
-                    giros.append("terminado")
-                    return giros
-                for giro in ["Up","Right","Left","Front","Down","Back","Up'","Right'","Left'","Front'","Back'","Down'"]:
-                    nuevo_estado = estado_actual.copiar_elementos()
-                    if(control_redundancia(giros,giro)):
-                        nuevo_estado.girar_pieza(giro)
-                        queue.append((nuevo_estado, giros + [giro]))
-            return None
+        while queue:
+            estado_actual, giros = queue.popleft()
+            if estado_actual == cubo_solucion:
+                giros.append("terminado")
+                return giros
+            for giro in ["Up","Right","Left","Front","Down","Back","Up'","Right'","Left'","Front'","Back'","Down'"]:
+                nuevo_estado = estado_actual.copiar_elementos()
+                if(control_redundancia(giros,giro)):
+                    nuevo_estado.girar_pieza(giro)
+                    queue.append((nuevo_estado, giros + [giro]))
+        return None
 
-url = input()
-
-cubo_insertado = insertar_cubo(url)
 armado = cubo_armado()
+while(True):
+    print("Bienvenido Cubo IA, este programa sirve para la resolucion de un cubo de rubik")
+    print("Inserta un cubo rubik que sea valido ya sea con su ubicacion en el equipo o el nombre siempre y cuando este este dentro de este directorio")
+    url = input()
+    cubo_insertado = insertar_cubo(url)
+    if cubo_armado.valido:
+        # inicio = time.time()
+        pasos = bfs(cubo_insertado, armado)
+        if pasos != None:
+            print("pasos para armar")
+            print(pasos)
+        else:
+            print("No se pudo armar el cubo")
+        # fin = time.time()
+        # tiempo_transcurrido = fin - inicio
+        # print(f"Tiempo transcurrido: {tiempo_transcurrido} segundos")
 
-inicio = time.time()
-pasos = bfs(cubo_insertado, armado)
-if pasos != None:
-    print("pasos para armar")
-    print(pasos)
-else:
-    print("No se pudo armar el cubo")
-fin = time.time()
-tiempo_transcurrido = fin - inicio
-print(f"Tiempo transcurrido: {tiempo_transcurrido} segundos")
 
