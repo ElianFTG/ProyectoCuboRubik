@@ -43,7 +43,7 @@ while(True):
     print("Inserta un cubo rubik que sea valido ya sea con su ubicacion en el equipo o el nombre siempre y cuando este este dentro de este directorio")
     url = input()
     cubo_insertado = insertar_cubo(url)
-    if cubo_armado.valido:
+    if cubo_insertado.valido:
         # inicio = time.time()
         pasos = bfs(cubo_insertado, armado)
         if pasos != None:
