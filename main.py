@@ -18,8 +18,9 @@ def cubo_armado():
 def control_redundancia(giros, giro_futuro):
     copia = giros[-3:].copy()
     copia.append(giro_futuro)
+    print(giros)
     contados = Counter(copia)
-    if contados[giro_futuro] >= 3:
+    if contados[giro_futuro] > 3:
         return False
     return True
 
@@ -40,19 +41,19 @@ def bfs(cubo_raiz, cubo_solucion):
 armado = cubo_armado()
 while(True):
     print("Bienvenido Cubo IA, este programa sirve para la resolucion de un cubo de rubik")
-    print("Inserta un cubo rubik que sea valido ya sea con su ubicacion en el equipo o el nombre siempre y cuando este este dentro de este directorio")
+    print("Inserta un cubo rubik que sea valido ya sea con su ubicacion en el equipo o el nombre del archivo de texto siempre y cuando este este dentro de este directorio")
     url = input()
     cubo_insertado = insertar_cubo(url)
     if cubo_insertado.valido:
-        # inicio = time.time()
+        inicio = time.time()
         pasos = bfs(cubo_insertado, armado)
         if pasos != None:
             print("pasos para armar")
             print(pasos)
         else:
             print("No se pudo armar el cubo")
-        # fin = time.time()
-        # tiempo_transcurrido = fin - inicio
-        # print(f"Tiempo transcurrido: {tiempo_transcurrido} segundos")
+        fin = time.time()
+        tiempo_transcurrido = fin - inicio
+        print(f"Tiempo transcurrido: {tiempo_transcurrido} segundos")
 
 

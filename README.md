@@ -43,7 +43,9 @@
     
     2. **.Instrucciones para ejecutar el programa**
         El programa principal el archivo que tiene por nombre "main.cpp".
-        la unica interaccion con el usuario es a traves de la consola donde unicamente debera ingresar la direccion total del archivo para cargar el Cubo y se ejecutara el programa de resolucion del cubo que se inserto, terminando, lanzara los resultados de movimientos adecuados para la resolucion
+        la unica interaccion con el usuario es a traves de la consola donde unicamente debera ingresar la direccion total del archivo para cargar el Cubo y se ejecutara el programa de resolucion del cubo que se inserto, terminando, lanzara los resultados de movimientos adecuados para la 
+        
+        - **Nota**: El programa se pobro hasta un maximo de 7 movimientos y demoró como 
 
 5. **Diseño e implementación**
     1. **descripción de modelo del problema** \
@@ -53,7 +55,7 @@
     Tambien se utilizaron las librerias Numpy y Count(collections), para una mejor manipulacion, comparacion en matrices y auxiliar en el control de datos
     2. **Algoritmo utilizado** \
     Se utilizo el algoritmo de Busqueda en Amplitud (BFS) ya que en la comprension de los diferentes estados del cubo, no se sabe con exactitud que movimiento puede ser el mas optimo
-    asumiendo que desconocemos de los algoritmos tradicionales para su resolucion, asumiendo esto, me dejó en la conclusion de que la unica manera posbile para esto es aplicando todos los estados posibles e ir comparando con un cubo que ya este resuelto.
+    asumiendo que desconocemos de los algoritmos tradicionales para su resolucion, asumiendo esto, me dejó en la conclusion de que la unica manera posbile para esto es aplicando todos los estados posibles e ir comparando con un cubo que ya este resuelto, Aplicamos tambien un control de redundancia para evitar que se repita mas de 3 movimientos de una misma pieza ya que volveriamos a los mismo.
     3. **Promps utilizados para la codificacion**\
     Para una codificacion mas sencilla se utilizo 3 promps consultados a ChatGPT:\
     **"Crea una funcion que reciba como parametro una matriz y lo gire 90 grados en sentido antihorario"** \
