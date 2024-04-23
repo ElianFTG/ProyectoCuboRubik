@@ -42,10 +42,8 @@
         amarillo amarillo amarillo\
     
     2. **.Instrucciones para ejecutar el programa**
-        El programa principal el archivo que tiene por nombre "main.cpp".
-        la unica interaccion con el usuario es a traves de la consola donde unicamente debera ingresar la direccion total del archivo para cargar el Cubo y se ejecutara el programa de resolucion del cubo que se inserto, terminando, lanzara los resultados de movimientos adecuados para la 
-        
-        - **Nota**: El programa se pobro hasta un maximo de 7 movimientos y demoró como 
+        El programa principal el archivo que tiene por nombre "main.py".
+        la unica interaccion con el usuario es a traves de la consola donde unicamente debera ingresar la direccion total del archivo para cargar el Cubo y se ejecutara el programa de resolucion del cubo que se inserto, terminando, lanzara los resultados de movimientos adecuados para la resolucion, al final para la intepretacion del resultado, Se tiene que: Up, Front, Left, Right, Back, Down (Arriba, Frente, Izquierda, Derecha, Atras, Abajo) son giros en sentido horario, y palabras con una comilla como ultima letra (Ejem: Up') son giros en sentido antihorario. 
 
 5. **Diseño e implementación**
     1. **descripción de modelo del problema** \
@@ -55,7 +53,8 @@
     Tambien se utilizaron las librerias Numpy y Count(collections), para una mejor manipulacion, comparacion en matrices y auxiliar en el control de datos
     2. **Algoritmo utilizado** \
     Se utilizo el algoritmo de Busqueda en Amplitud (BFS) ya que en la comprension de los diferentes estados del cubo, no se sabe con exactitud que movimiento puede ser el mas optimo
-    asumiendo que desconocemos de los algoritmos tradicionales para su resolucion, asumiendo esto, me dejó en la conclusion de que la unica manera posbile para esto es aplicando todos los estados posibles e ir comparando con un cubo que ya este resuelto, Aplicamos tambien un control de redundancia para evitar que se repita mas de 3 movimientos de una misma pieza ya que volveriamos a los mismo.
+    asumiendo que desconocemos de los algoritmos tradicionales para su resolucion, me dejó en la conclusion de que la unica manera posbile para esto es aplicando todos los estados posibles e ir comparando con un cubo que ya este resuelto. \
+    **Nota**: El punto debil de este algoritmo es que tiene un numero de pasos para la resolucion del cubo como maximo de 6 movimientos con tiempo de 20 min. aproximadamente para la resolucion del cubo admitido, porque como el algoritmo BFS explora todos los estados posibles como aproximadamente 409 quintillones de combinanciones, la memoria de la computadora no cubriria ni el 1% del total, por lo tanto el punto debil es que caeria el programa cuando este halla llegado a topar el limite de memoria de la computadora.
     3. **Promps utilizados para la codificacion**\
     Para una codificacion mas sencilla se utilizo 3 promps consultados a ChatGPT:\
     **"Crea una funcion que reciba como parametro una matriz y lo gire 90 grados en sentido antihorario"** \
@@ -95,6 +94,6 @@
 6. **Trabajo futuro**
     - Refactory: Para esta primera version, se tiene mucho codigo repetido en los movimientos del cubo, por ello, puede se puede mejorar la legibilidad y la estructura de codigo.
     - Una mejor estructura de datos posible: Se podria aplicar una estructura de datos que requiera de Heuristica como A*(A star) como una mejor solucion en dado caso de que ignoremos un poco la condicion de desconocimiento de algoritmos tipicos de armado, ya que podemos aplicar la heuristica a cada estado de que tan lejos puede estar a uno de los [7 estados condicionales para el armado tipico de un cubo](https://rubikscu.be/#tutorial)
-    - Crear diseño de interfaz grafica: Se podria aplicar una mejor interaccion con el usuario y visualizacion para el usuario agregando una interfaz 3D
+    - Crear de una manera mas general el codigo para que pueda ser mucho mas dinamico sin colores pre establecidos y puedan estar en cualquier lugar, generalizando tambien el nombre si es en minusculas o mayusculas
 
     

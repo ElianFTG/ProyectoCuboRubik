@@ -18,7 +18,6 @@ def cubo_armado():
 def control_redundancia(giros, giro_futuro):
     copia = giros[-3:].copy()
     copia.append(giro_futuro)
-    print(giros)
     contados = Counter(copia)
     if contados[giro_futuro] > 3:
         return False
@@ -29,7 +28,6 @@ def bfs(cubo_raiz, cubo_solucion):
         while queue:
             estado_actual, giros = queue.popleft()
             if estado_actual == cubo_solucion:
-                giros.append("terminado")
                 return giros
             for giro in ["Up","Right","Left","Front","Down","Back","Up'","Right'","Left'","Front'","Back'","Down'"]:
                 nuevo_estado = estado_actual.copiar_elementos()
